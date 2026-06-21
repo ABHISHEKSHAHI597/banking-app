@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import bcrypt from "bcryptjs";
 
 const registerController = asyncHandler(async(req,res)=>{
     const {name, email, password, cvv} = req.body
-
     try{
         const user = await User.findOne({email})
 
@@ -15,7 +15,6 @@ const registerController = asyncHandler(async(req,res)=>{
         }
         else{
             // Generating a unique 12 digit card num for each user
-
             let cardNum
 
             while(true){
@@ -25,14 +24,17 @@ const registerController = asyncHandler(async(req,res)=>{
                     break;
                 }
             }
+            const pass = await bcrypt.hash(password,10)
+            const CVV = await bcrypt.hash(cvv,10)
             const user = await User.create({
                 name,
                 email,
-                password,
+                password : pass,
                 cardNum,
-                cvv,
+                cvv : CVV,
             })
 
+            console.log(`${user.name} registered`);
             return res.status(201).json({
                 message: "Successfully registered"
             })
