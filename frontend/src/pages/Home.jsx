@@ -50,7 +50,6 @@ const Home = () => {
 
     const registerSubmit = async (data) => {
         try {
-            console.log(1);
             const res = await axios.post(
                 "http://localhost:5000/register",
                 {
@@ -60,7 +59,6 @@ const Home = () => {
                     cvv: data.cvv,
                 }
             );
-            console.log(2);
             reset();
             
             alert(res.data.message);
@@ -70,7 +68,6 @@ const Home = () => {
             }
 
         } catch (error) {
-            console.log(3);
             reset();
             alert(error.response.data.message)
         }
