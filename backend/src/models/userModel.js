@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     cvv: {
         type: String,
-        required: true,
+        required: true, 
     },
     balance: {
         type: Number,
