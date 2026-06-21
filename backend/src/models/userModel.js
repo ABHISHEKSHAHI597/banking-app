@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: false,
     },
     email: {
         type: String,
@@ -14,7 +13,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        unique: false,
     },
     cardNum: {
         type: String,
@@ -24,7 +22,6 @@ const userSchema = new mongoose.Schema({
     cvv: {
         type: String,
         required: true,
-        unique: false
     },
     balance: {
         type: Number,

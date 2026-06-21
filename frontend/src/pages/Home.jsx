@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const Home = () => {
+    const navigate = useNavigate()
     const [isLogin, setIsLogin] = useState(true);
     const [loginType, setLoginType] = useState("user");
 
@@ -18,27 +21,57 @@ const Home = () => {
     const password = watch("password");
     const cvv = watch("cvv");
 
-    const loginSubmit = (data) => {
-        console.log("Login Data:", {
-            ...data,
-            loginType,
-        });
+    const loginSubmit = async (data) => {
+        try {
+            const res = await axios.post(
+                "http://localhost:5000/login",
+                {
+                    email: data.email,
+                    password: data.password,
+                    loginType,
+                }
+            );
 
-        reset();
+            reset();
 
-        
+            alert(res.data.message);
+
+            if (res.status === 200) {
+                const dashboard = loginType === "user" ? "userDashboard" : "adminDashboard";
+
+                navigate(`/${dashboard}`);
+            }
+
+        } catch (error) {
+            reset();
+            alert(error.response.data.message);
+        }
     };
 
-    const registerSubmit = (data) => {
-        const {
-            confirmPassword,
-            confirmCvv,
-            ...userData
-        } = data;
+    const registerSubmit = async (data) => {
+        try {
+            const res = await axios.post(
+                "http://localhost:5000/register",
+                {
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                    cvv: data.cvv,
+                }
+            );
 
-        console.log("Register Data:", userData);
+            reset();
+            
+            alert(res.data.message);
 
-        reset();
+            if (res.status === 201) {
+                navigate("/userDashboard");
+            }
+
+        } catch (error) {
+            reset();
+            alert(error.response.data.message)
+        }
     };
 
     return (
@@ -61,8 +94,8 @@ const Home = () => {
                             setIsLogin(true);
                         }}
                         className={`flex-1 py-2 rounded-md transition ${isLogin
-                                ? "bg-emerald-600 text-white"
-                                : "text-slate-400"
+                            ? "bg-emerald-600 text-white"
+                            : "text-slate-400"
                             }`}
                     >
                         Login
@@ -75,8 +108,8 @@ const Home = () => {
                             setIsLogin(false);
                         }}
                         className={`flex-1 py-2 rounded-md transition ${!isLogin
-                                ? "bg-emerald-600 text-white"
-                                : "text-slate-400"
+                            ? "bg-emerald-600 text-white"
+                            : "text-slate-400"
                             }`}
                     >
                         Register
