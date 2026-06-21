@@ -36,6 +36,10 @@ const Home = () => {
 
             alert(res.data.message);
 
+            const token = res.data.token
+            
+            localStorage.setItem("token", token)
+
             if (res.status === 200) {
                 const dashboard = loginType === "user" ? "userDashboard" : "adminDashboard";
 
@@ -62,6 +66,10 @@ const Home = () => {
             reset();
             
             alert(res.data.message);
+
+            const token = res.data.token
+
+            localStorage.setItem("token", token)
 
             if (res.status === 201) {
                 navigate("/userDashboard");

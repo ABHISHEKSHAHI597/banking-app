@@ -6,6 +6,9 @@ import { createAdmin } from "./controllers/createAdmin.js"
 import { loginController } from "./controllers/loginController.js"
 import cors from "cors"
 import { registerController } from "./controllers/registerController.js"
+import { protect } from "./middlewares/authMiddleware.js"
+import { userDashboardController } from "./controllers/userDashboardController.js"
+
 
 dotenv.config()
 
@@ -24,6 +27,7 @@ app.use(cors({
 
 app.post("/login", loginController)
 app.post("/register", registerController)
+app.get("/userDashboard", protect, userDashboardController)
 
 // app.get('/users', userRoutes);
 

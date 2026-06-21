@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const transactionSchema = new mongoose.Schema({
     sender: {
@@ -19,3 +19,5 @@ const transactionSchema = new mongoose.Schema({
 {
     timestamps: true,
 })
+
+export default mongoose.model("Transaction", transactionSchema)

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"
 
 const registerController = asyncHandler(async(req,res)=>{
     const {name, email, password, cvv} = req.body
@@ -36,7 +37,8 @@ const registerController = asyncHandler(async(req,res)=>{
 
             console.log(`${user.name} registered`);
             return res.status(201).json({
-                message: "Successfully registered"
+                message: "Successfully registered",
+                token: generateToken(user._id)
             })
         }
     } catch (error) {
@@ -46,5 +48,11 @@ const registerController = asyncHandler(async(req,res)=>{
         })
     }
 })
+
+const generateToken = (id) => {
+    return jwt.sign({id},process.env.JWT_SECRET,{
+        expiresIn: '15m',
+    })
+}
 
 export { registerController }

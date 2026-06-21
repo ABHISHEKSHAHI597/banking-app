@@ -4,6 +4,7 @@ import User from "../models/userModel.js"
 import Admin from "../models/adminModel.js";
 import bcrypt from "bcryptjs"
 import colors from "colors"
+import jwt from "jsonwebtoken"
 
 const loginController = asyncHandler(async (req, res) => {
 
@@ -24,7 +25,8 @@ const loginController = asyncHandler(async (req, res) => {
             if (isMatch) {
                 console.log(`${user.name} logged in`.cyan.underline.bold)
                 return res.status(200).json({
-                    message: "Login successfull"
+                    message: "Login successfull",
+                    token: generateToken(user._id)
                 })
             }
             else {
@@ -50,7 +52,8 @@ const loginController = asyncHandler(async (req, res) => {
             if (isMatch) {
                 console.log(`${user.name} logged in`.cyan.underline.bold)
                 return res.status(200).json({
-                    message: "Login successfull"
+                    message: "Login successfull",
+                    token: generateToken(user._id)
                 })
             }
             else {
@@ -62,5 +65,11 @@ const loginController = asyncHandler(async (req, res) => {
 
     }
 })
+
+const generateToken = (id) => {
+    return jwt.sign({id},process.env.JWT_SECRET,{
+        expiresIn: '15m',
+    })
+}
 
 export { loginController }
