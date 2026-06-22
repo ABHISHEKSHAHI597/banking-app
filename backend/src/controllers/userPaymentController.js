@@ -77,8 +77,6 @@ const userPayment = async (req, res) => {
             amount
         })
 
-        console.log(payment);
-
         return res.status(200).json({
             message: "Payment Successfull"
         })

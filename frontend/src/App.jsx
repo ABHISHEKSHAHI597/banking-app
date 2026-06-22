@@ -6,6 +6,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import UserProfile from './pages/UserProfile'
 import UserPayment from './pages/UserPayment'
 import { ToastContainer } from 'react-toastify'
+import UserTransaction from './pages/UserTransaction'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const App = () => {
     {
       path: "/userPayment",
       element: <UserPayment />
+    },
+    {
+      path: "/UserTransaction",
+      element: <UserTransaction />
     }
   ])
   return (

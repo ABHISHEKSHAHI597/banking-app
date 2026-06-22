@@ -78,7 +78,7 @@ const UserDashboard = () => {
       </div>
 
       {/* Virtual Card */}
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
+      <div className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
 
         <h2 className="text-lg font-semibold opacity-90">
           Banking App
@@ -159,7 +159,7 @@ const UserDashboard = () => {
         </Link>
 
         <Link
-          to="/transactions"
+          to="/userTransaction"
           className="bg-blue-600 hover:bg-blue-700 rounded-2xl p-8 text-center text-white text-xl font-semibold transition"
         >
           📜 Transaction History

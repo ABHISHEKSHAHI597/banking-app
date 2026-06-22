@@ -23,7 +23,6 @@ const loginController = asyncHandler(async (req, res) => {
             const isMatch = await bcrypt.compare(password, user.password)
 
             if (isMatch) {
-                console.log(`${user.name} logged in`.cyan.underline.bold)
                 return res.status(200).json({
                     message: "Login successfull",
                     token: generateToken(user._id)
