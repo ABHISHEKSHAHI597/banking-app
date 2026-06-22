@@ -3,6 +3,9 @@ import { RouterContextProvider, RouterProvider, createBrowserRouter } from "reac
 import Home from "./pages/Home"
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
+import UserProfile from './pages/UserProfile'
+import UserPayment from './pages/UserPayment'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -17,10 +20,21 @@ const App = () => {
     {
       path: "/adminDashboard",
       element: <AdminDashboard />
+    },
+    {
+      path: "/userProfile",
+      element: <UserProfile />
+    },
+    {
+      path: "/userPayment",
+      element: <UserPayment />
     }
   ])
   return (
+    <>
     <RouterProvider router={router} />
+    <ToastContainer />
+    </>
   )
 }
 

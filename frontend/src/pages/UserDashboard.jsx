@@ -4,17 +4,9 @@ import axios from "axios"
 import { useState } from "react";
 
 const UserDashboard = () => {
-  const [name, setName] = useState(null)
   const [credit, setCredit] = useState(null)
   const [debit, setDebit] = useState(null)
-  const [balance, setBalance] = useState(null)
-
-  const user = {
-    name: "Abhishek",
-    balance: 12500,
-    totalCredit: 20000,
-    totalDebit: 7500,
-  };
+  const [user,setUser] = useState({})
 
   useEffect(() => {
     let token = localStorage.getItem("token")
@@ -25,12 +17,11 @@ const UserDashboard = () => {
         }
       })
 
-      const {name, credit, debit, balance} = res.data
+      const {user, credit, debit, balance} = res.data
 
-      setName(name)
       setCredit(credit)
       setDebit(debit)
-      setBalance(balance)
+      setUser(user)
     }
     getData();
   },[])
@@ -39,7 +30,7 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-slate-950 p-6">
 
       <h1 className="text-4xl font-bold text-white mb-6">
-        Welcome, {name}
+        Welcome, {user.name}
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6">
@@ -50,7 +41,7 @@ const UserDashboard = () => {
           </h2>
 
           <p className="text-4xl font-bold text-green-500 mt-3">
-            ₹ {balance}
+            ₹ {user.balance}
           </p>
         </div>
 
@@ -79,8 +70,9 @@ const UserDashboard = () => {
       <div className="flex gap-4 mt-8">
 
         <Link
-          to="/send-money"
+          to="/userPayment"
           className="bg-emerald-600 px-6 py-3 rounded-lg text-white"
+          state={user}
         >
           Send Money
         </Link>
@@ -93,8 +85,9 @@ const UserDashboard = () => {
         </Link>
 
         <Link
-          to="/profile"
+          to="/UserProfile"
           className="bg-purple-600 px-6 py-3 rounded-lg text-white"
+          state={user}
         >
           Profile
         </Link>

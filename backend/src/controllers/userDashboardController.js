@@ -21,10 +21,10 @@ const userDashboardController = asyncHandler(async(req,res)=>{
         credit += item.amount
     })
 
-    console.log(`${user.name} visited dashboard`);
+    console.log(`${user.name} visited dashboard`.cyan.underline.bold);
 
     res.status(200).json({
-        name: user.name,
+        user,
         credit,
         debit,
         balance: user.balance
