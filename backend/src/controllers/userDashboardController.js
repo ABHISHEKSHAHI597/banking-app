@@ -8,7 +8,7 @@ const userDashboardController = asyncHandler(async(req,res)=>{
     const id = user._id.toString()
     
     const debits = await Transaction.find({sender: id})
-    const credits = await Transaction.find({reciever: id})
+    const credits = await Transaction.find({receiver: id})
     
     let credit = 0
     let debit = 0

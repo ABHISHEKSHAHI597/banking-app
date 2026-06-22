@@ -37,7 +37,7 @@ const Home = () => {
             alert(res.data.message);
 
             const token = res.data.token
-            
+
             localStorage.setItem("token", token)
 
             if (res.status === 200) {
@@ -64,7 +64,7 @@ const Home = () => {
                 }
             );
             reset();
-            
+
             alert(res.data.message);
 
             const token = res.data.token
@@ -82,27 +82,68 @@ const Home = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 flex justify-center items-center px-4">
-            <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex justify-center items-center px-4 py-10">
 
-                <h1 className="text-4xl font-bold text-center text-white mb-2">
-                    Banking App
-                </h1>
+            <div className="w-full max-w-lg bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-8 shadow-2xl">
 
-                <p className="text-slate-400 text-center mb-8">
-                    Secure Banking
-                </p>
+                {/* Logo */}
 
-                <div className="flex bg-slate-800 rounded-lg p-1 mb-6">
+                <div className="flex flex-col items-center mb-8">
+
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 flex items-center justify-center text-4xl font-bold text-white mb-4">
+                        ₹
+                    </div>
+
+                    <h1 className="text-5xl font-bold text-white">
+                        Banking App
+                    </h1>
+
+                    <p className="text-slate-400 mt-2">
+                        Secure • Fast • Reliable
+                    </p>
+
+                </div>
+
+                {/* Features */}
+
+                <div className="grid grid-cols-3 gap-3 mb-8">
+
+                    <div className="bg-slate-800 rounded-xl p-3 text-center border border-slate-700">
+                        <p className="text-2xl">🔒</p>
+                        <p className="text-xs text-slate-300 mt-1">
+                            Secure
+                        </p>
+                    </div>
+
+                    <div className="bg-slate-800 rounded-xl p-3 text-center border border-slate-700">
+                        <p className="text-2xl">⚡</p>
+                        <p className="text-xs text-slate-300 mt-1">
+                            Fast
+                        </p>
+                    </div>
+
+                    <div className="bg-slate-800 rounded-xl p-3 text-center border border-slate-700">
+                        <p className="text-2xl">🛡️</p>
+                        <p className="text-xs text-slate-300 mt-1">
+                            Trusted
+                        </p>
+                    </div>
+
+                </div>
+
+                {/* Login Register Toggle */}
+
+                <div className="flex bg-slate-800 rounded-xl p-1 mb-8">
+
                     <button
                         type="button"
                         onClick={() => {
                             reset();
                             setIsLogin(true);
                         }}
-                        className={`flex-1 py-2 rounded-md transition ${isLogin
-                            ? "bg-emerald-600 text-white"
-                            : "text-slate-400"
+                        className={`flex-1 py-3 rounded-lg font-semibold transition ${isLogin
+                                ? "bg-gradient-to-r from-emerald-500 to-green-600 text-white"
+                                : "text-slate-400"
                             }`}
                     >
                         Login
@@ -114,20 +155,22 @@ const Home = () => {
                             reset();
                             setIsLogin(false);
                         }}
-                        className={`flex-1 py-2 rounded-md transition ${!isLogin
-                            ? "bg-emerald-600 text-white"
-                            : "text-slate-400"
+                        className={`flex-1 py-3 rounded-lg font-semibold transition ${!isLogin
+                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                                : "text-slate-400"
                             }`}
                     >
                         Register
                     </button>
+
                 </div>
 
                 {isLogin ? (
                     <form
                         onSubmit={handleSubmit(loginSubmit)}
-                        className="space-y-4"
+                        className="space-y-5"
                     >
+
                         <div>
                             <label className="block text-slate-300 mb-2">
                                 Login As
@@ -135,30 +178,20 @@ const Home = () => {
 
                             <select
                                 value={loginType}
-                                onChange={(e) =>
-                                    setLoginType(e.target.value)
-                                }
-                                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-700"
+                                onChange={(e) => setLoginType(e.target.value)}
+                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
                             >
-                                <option value="user">
-                                    User
-                                </option>
-
-                                <option value="admin">
-                                    Admin
-                                </option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </div>
 
                         <div>
                             <input
                                 type="email"
-                                placeholder="Email"
-                                {...register("email", {
-                                    required:
-                                        "Email is required",
-                                })}
-                                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-700"
+                                placeholder="Email Address"
+                                {...register("email")}
+                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
                             />
 
                             {errors.email && (
@@ -172,11 +205,8 @@ const Home = () => {
                             <input
                                 type="password"
                                 placeholder="Password"
-                                {...register("password", {
-                                    required:
-                                        "Password is required",
-                                })}
-                                className="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-700"
+                                {...register("password")}
+                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
                             />
 
                             {errors.password && (
@@ -188,176 +218,86 @@ const Home = () => {
 
                         <button
                             type="submit"
-                            className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 rounded-lg text-white font-semibold"
+                            className="w-full py-4 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-xl text-white font-bold text-lg transition"
                         >
                             Login
                         </button>
+
                     </form>
                 ) : (
                     <form
                         onSubmit={handleSubmit(registerSubmit)}
-                        className="space-y-4"
+                        className="space-y-5"
                     >
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="Name"
-                                {...register("name", {
-                                    required:
-                                        "Name is required",
-                                })}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
 
-                            {errors.name && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.name.message}
-                                </p>
-                            )}
-                        </div>
+                        <input
+                            type="text"
+                            placeholder="Full Name"
+                            {...register("name")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
-                        <div>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                {...register("email", {
-                                    required:
-                                        "Email is required",
-                                })}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
+                        <input
+                            type="email"
+                            placeholder="Email Address"
+                            {...register("email")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
-                            {errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.email.message}
-                                </p>
-                            )}
-                        </div>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            {...register("password")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
-                        <div>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                {...register("password", {
-                                    required:
-                                        "Password is required",
-                                    minLength: {
-                                        value: 8,
-                                        message:
-                                            "Password must be at least 8 characters",
-                                    },
-                                    maxLength: {
-                                        value: 16,
-                                        message:
-                                            "Password must be at most 16 characters",
-                                    },
-                                })}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            {...register("confirmPassword")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
-                            {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.password.message}
-                                </p>
-                            )}
-                        </div>
+                        <input
+                            type="password"
+                            placeholder="CVV"
+                            {...register("cvv")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
-                        <div>
-                            <input
-                                type="password"
-                                placeholder="Confirm Password"
-                                {...register(
-                                    "confirmPassword",
-                                    {
-                                        required:
-                                            "Please confirm your password",
-                                        validate: (
-                                            value
-                                        ) =>
-                                            value ===
-                                            password ||
-                                            "Passwords do not match",
-                                    }
-                                )}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
-
-                            {errors.confirmPassword && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {
-                                        errors
-                                            .confirmPassword
-                                            .message
-                                    }
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <input
-                                type="password"
-                                placeholder="CVV"
-                                maxLength={3}
-                                {...register("cvv", {
-                                    required:
-                                        "CVV is required",
-                                    pattern: {
-                                        value: /^\d{3}$/,
-                                        message:
-                                            "CVV must be exactly 3 digits",
-                                    },
-                                })}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
-
-                            {errors.cvv && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.cvv.message}
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <input
-                                type="password"
-                                placeholder="Confirm CVV"
-                                maxLength={3}
-                                {...register(
-                                    "confirmCvv",
-                                    {
-                                        required:
-                                            "Please confirm your CVV",
-                                        validate: (
-                                            value
-                                        ) =>
-                                            value ===
-                                            cvv ||
-                                            "CVVs do not match",
-                                    }
-                                )}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white"
-                            />
-
-                            {errors.confirmCvv && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {
-                                        errors
-                                            .confirmCvv
-                                            .message
-                                    }
-                                </p>
-                            )}
-                        </div>
+                        <input
+                            type="password"
+                            placeholder="Confirm CVV"
+                            {...register("confirmCvv")}
+                            className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
+                        />
 
                         <button
                             type="submit"
-                            className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition"
+                            className="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl text-white font-bold text-lg transition"
                         >
                             Register
                         </button>
+
                     </form>
                 )}
+
+                {/* Footer */}
+
+                <div className="mt-8 pt-6 border-t border-slate-800 text-center">
+
+                    <p className="text-slate-500 text-sm">
+                        Banking Simulation Project
+                    </p>
+
+                    <p className="text-slate-600 text-xs mt-1">
+                        Secure Digital Transactions • MERN Stack
+                    </p>
+
+                </div>
+
             </div>
+
         </div>
     );
 };

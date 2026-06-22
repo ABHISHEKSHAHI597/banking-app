@@ -9,6 +9,7 @@ import { registerController } from "./controllers/registerController.js"
 import { protect } from "./middlewares/authMiddleware.js"
 import { userDashboardController } from "./controllers/userDashboardController.js"
 import {userPayment} from "./controllers/userPaymentController.js"
+import { getUser } from "./controllers/getUser.js"
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.post("/login", loginController)
 app.post("/register", registerController)
 app.get("/userDashboard", protect, userDashboardController)
 app.post('/userPayment', protect, userPayment)
+app.get('/getUser', protect, getUser  )
 
 app.listen(port, () => {
   console.log(`App is running on port ${port}`.cyan.underline.bold);
