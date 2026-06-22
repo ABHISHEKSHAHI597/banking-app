@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 
 const Home = () => {
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
-    const [loginType, setLoginType] = useState("user");
 
     const {
         register,
@@ -24,37 +24,46 @@ const Home = () => {
 
     const loginSubmit = async (data) => {
         try {
+            setLoading(true);
+
             const res = await axios.post(
                 "http://localhost:5000/login",
                 {
                     email: data.email,
                     password: data.password,
-                    loginType,
                 }
             );
 
             reset();
 
-            toast.success(res.data.message)
+            toast.success(res.data.message);
 
-            const token = res.data.token
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
 
-            localStorage.setItem("token", token)
-
-            if (res.status === 200) {
-                const dashboard = loginType === "user" ? "userDashboard" : "adminDashboard";
-
-                navigate(`/${dashboard}`);
-            }
+            navigate("/userDashboard");
 
         } catch (error) {
+
             reset();
-            toast.error(error.response.data.message);
+
+            toast.error(
+                error.response?.data?.message ||
+                "Login Failed"
+            );
+
+        } finally {
+            setLoading(false);
         }
     };
 
     const registerSubmit = async (data) => {
         try {
+
+            setLoading(true);
+
             const res = await axios.post(
                 "http://localhost:5000/register",
                 {
@@ -64,21 +73,29 @@ const Home = () => {
                     cvv: data.cvv,
                 }
             );
+
             reset();
 
             toast.success(res.data.message);
 
-            const token = res.data.token
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
 
-            localStorage.setItem("token", token)
-
-            if (res.status === 201) {
-                navigate("/userDashboard");
-            }
+            navigate("/userDashboard");
 
         } catch (error) {
+
             reset();
-            toast.error(error.response.data.message)
+
+            toast.error(
+                error.response?.data?.message ||
+                "Registration Failed"
+            );
+
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -143,8 +160,8 @@ const Home = () => {
                             setIsLogin(true);
                         }}
                         className={`flex-1 py-3 rounded-lg font-semibold transition ${isLogin
-                                ? "bg-linear-to-r from-emerald-500 to-green-600 text-white"
-                                : "text-slate-400"
+                            ? "bg-linear-to-r from-emerald-500 to-green-600 text-white"
+                            : "text-slate-400"
                             }`}
                     >
                         Login
@@ -157,8 +174,8 @@ const Home = () => {
                             setIsLogin(false);
                         }}
                         className={`flex-1 py-3 rounded-lg font-semibold transition ${!isLogin
-                                ? "bg-linear-to-r from-blue-500 to-purple-600 text-white"
-                                : "text-slate-400"
+                            ? "bg-linear-to-r from-blue-500 to-purple-600 text-white"
+                            : "text-slate-400"
                             }`}
                     >
                         Register
@@ -173,25 +190,12 @@ const Home = () => {
                     >
 
                         <div>
-                            <label className="block text-slate-300 mb-2">
-                                Login As
-                            </label>
-
-                            <select
-                                value={loginType}
-                                onChange={(e) => setLoginType(e.target.value)}
-                                className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
-                            >
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-
-                        <div>
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                {...register("email")}
+                                {...register("email", {
+                                    required: "Email is required",
+                                })}
                                 className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
                             />
 
@@ -206,7 +210,9 @@ const Home = () => {
                             <input
                                 type="password"
                                 placeholder="Password"
-                                {...register("password")}
+                                {...register("password", {
+                                    required: "Password is required",
+                                })}
                                 className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-emerald-500 outline-none"
                             />
 
@@ -219,9 +225,10 @@ const Home = () => {
 
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full py-4 bg-linear-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-xl text-white font-bold text-lg transition"
                         >
-                            Login
+                            {loading ? "Logging In..." : "Login"}
                         </button>
 
                     </form>
@@ -234,50 +241,78 @@ const Home = () => {
                         <input
                             type="text"
                             placeholder="Full Name"
-                            {...register("name")}
+                            {...register("name", {
+                                required: "Name is required",
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
 
                         <input
                             type="email"
                             placeholder="Email Address"
-                            {...register("email")}
+                            {...register("email", {
+                                required: "Email is required",
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
 
                         <input
                             type="password"
                             placeholder="Password"
-                            {...register("password")}
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 8,
+                                    message: "Password must be at least 8 characters",
+                                },
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
 
                         <input
                             type="password"
                             placeholder="Confirm Password"
-                            {...register("confirmPassword")}
+                            {...register("confirmPassword", {
+                                required: "Confirm Password is required",
+                                validate: (value) =>
+                                    value === password ||
+                                    "Passwords do not match",
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
-
                         <input
                             type="password"
                             placeholder="CVV"
-                            {...register("cvv")}
+                            maxLength={3}
+                            {...register("cvv", {
+                                required: "CVV is required",
+                                pattern: {
+                                    value: /^\d{3}$/,
+                                    message: "CVV must be exactly 3 digits",
+                                },
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
 
                         <input
                             type="password"
                             placeholder="Confirm CVV"
-                            {...register("confirmCvv")}
+                            maxLength={3}
+                            {...register("confirmCvv", {
+                                required: "Confirm CVV is required",
+                                validate: (value) =>
+                                    value === cvv ||
+                                    "CVVs do not match",
+                            })}
                             className="w-full p-4 rounded-xl bg-slate-800 border border-slate-700 text-white focus:border-blue-500 outline-none"
                         />
 
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full py-4 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl text-white font-bold text-lg transition"
                         >
-                            Register
+                            {loading ? "Registering..." : "Register"}
                         </button>
 
                     </form>

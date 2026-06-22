@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const UserTransaction = () => {
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -19,6 +19,8 @@ const UserTransaction = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
+
         const userRes = await axios.get(
           "http://localhost:5000/getUser",
           {
@@ -40,11 +42,18 @@ const UserTransaction = () => {
         );
 
         setTransactions(transRes.data.transactions);
+
       } catch (error) {
+
         toast.error(
           error.response?.data?.message ||
           "Failed to load transactions"
         );
+
+      } finally {
+
+        setLoading(false);
+
       }
     };
 
@@ -53,8 +62,17 @@ const UserTransaction = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-slate-950 flex justify-center items-center text-white text-2xl">
-        Loading...
+      <div className="min-h-screen bg-slate-950 p-6 animate-pulse">
+
+        <div className="h-12 w-96 bg-slate-800 rounded mb-8"></div>
+
+        <div className="h-48 bg-slate-900 rounded-3xl mb-8"></div>
+
+        <div className="space-y-4">
+          <div className="h-40 bg-slate-900 rounded-2xl"></div>
+          <div className="h-40 bg-slate-900 rounded-2xl"></div>
+        </div>
+
       </div>
     );
   }
@@ -150,11 +168,37 @@ const UserTransaction = () => {
 
       <div className="space-y-4">
 
-        {transactions.length === 0 ? (
+        {loading ? (
+          <div className="space-y-4">
+
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="bg-slate-900 rounded-2xl p-6 animate-pulse"
+              >
+                <div className="h-6 bg-slate-800 rounded w-1/3 mb-4"></div>
+
+                <div className="h-4 bg-slate-800 rounded w-1/2 mb-6"></div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+
+                  <div className="h-32 bg-slate-800 rounded-xl"></div>
+
+                  <div className="h-32 bg-slate-800 rounded-xl"></div>
+
+                </div>
+              </div>
+            ))}
+
+          </div>
+        ) : transactions.length === 0 ? (
+
           <div className="bg-slate-900 rounded-2xl p-8 text-center text-slate-400">
             No Transactions Found
           </div>
+
         ) : (
+
           transactions.map((transaction) => {
 
             const isDebit =
@@ -186,8 +230,8 @@ const UserTransaction = () => {
 
                   <div
                     className={`text-2xl font-bold ${isDebit
-                        ? "text-red-500"
-                        : "text-green-500"
+                      ? "text-red-500"
+                      : "text-green-500"
                       }`}
                   >
                     {isDebit ? "-" : "+"} ₹

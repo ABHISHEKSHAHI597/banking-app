@@ -2,7 +2,6 @@ import express from "express"
 import colors from "colors"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
-import { createAdmin } from "./controllers/createAdmin.js"
 import { loginController } from "./controllers/loginController.js"
 import cors from "cors"
 import { registerController } from "./controllers/registerController.js"
@@ -14,8 +13,6 @@ import {getTransaction} from "./controllers/getTransaction.js"
 
 
 dotenv.config()
-
-// createAdmin("Abhishek Shahi","adminabhishek@gmail.com","111111111111", "admin@123")
 
 await mongoose.connect(process.env.MONGO_URI)
 
