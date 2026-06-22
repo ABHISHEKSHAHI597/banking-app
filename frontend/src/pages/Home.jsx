@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify";
 
 const Home = () => {
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ const Home = () => {
 
             reset();
 
-            alert(res.data.message);
+            toast.success(res.data.message)
 
             const token = res.data.token
 
@@ -48,7 +49,7 @@ const Home = () => {
 
         } catch (error) {
             reset();
-            alert(error.response.data.message);
+            toast.error(error.response.data.message);
         }
     };
 
@@ -65,7 +66,7 @@ const Home = () => {
             );
             reset();
 
-            alert(res.data.message);
+            toast.success(res.data.message);
 
             const token = res.data.token
 
@@ -77,7 +78,7 @@ const Home = () => {
 
         } catch (error) {
             reset();
-            alert(error.response.data.message)
+            toast.error(error.response.data.message)
         }
     };
 

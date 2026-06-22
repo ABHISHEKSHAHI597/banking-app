@@ -194,7 +194,7 @@ const UserPayment = () => {
 
             {/* Virtual Card */}
 
-            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
+            <div className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
 
                 <h2 className="text-lg font-semibold">
                     Banking App
@@ -328,7 +328,7 @@ const UserPayment = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 rounded-xl text-lg font-bold transition"
+                        className="w-full bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 rounded-xl text-lg font-bold transition"
                     >
                         {loading
                             ? "Processing Transfer..."
