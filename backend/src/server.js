@@ -8,7 +8,7 @@ import cors from "cors"
 import { registerController } from "./controllers/registerController.js"
 import { protect } from "./middlewares/authMiddleware.js"
 import { userDashboardController } from "./controllers/userDashboardController.js"
-
+import {userPayment} from "./controllers/userPaymentController.js"
 
 dotenv.config()
 
@@ -28,8 +28,7 @@ app.use(cors({
 app.post("/login", loginController)
 app.post("/register", registerController)
 app.get("/userDashboard", protect, userDashboardController)
-
-// app.get('/users', userRoutes);
+app.post('/userPayment', protect, userPayment)
 
 app.listen(port, () => {
   console.log(`App is running on port ${port}`.cyan.underline.bold);

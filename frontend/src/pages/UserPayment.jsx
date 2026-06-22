@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const UserPayment = () => {
-    const location = useLocation();
-    const user = location.state;
+    
 
     const [receiverCardNumber, setReceiverCardNumber] = useState("");
     const [senderCardNumber, setSenderCardNumber] = useState("");
@@ -24,7 +22,7 @@ const UserPayment = () => {
             return toast.error("Receiver card number must be 12 digits");
         }
 
-        if (receiverCardNumber === user.cardNumber) {
+        if (receiverCardNumber === user.cardNum) {
             return toast.error("Cannot send money to yourself");
         }
 
@@ -32,16 +30,12 @@ const UserPayment = () => {
             return toast.error("Enter your card number");
         }
 
-        if (senderCardNumber !== user.cardNumber) {
+        if (senderCardNumber !== user.cardNum) {
             return toast.error("Invalid sender card number");
         }
 
         if (!cvv.trim()) {
             return toast.error("Enter CVV");
-        }
-
-        if (cvv !== user.cvv) {
-            return toast.error("Incorrect CVV");
         }
 
         if (!amount) {
@@ -82,6 +76,8 @@ const UserPayment = () => {
                 }
             );
 
+            setBalance(prev => prev - numAmount);
+            
             toast.success(data.message);
 
             setReceiverCardNumber("");

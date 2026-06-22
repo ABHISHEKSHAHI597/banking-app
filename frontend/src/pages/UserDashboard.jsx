@@ -72,7 +72,6 @@ const UserDashboard = () => {
         <Link
           to="/userPayment"
           className="bg-emerald-600 px-6 py-3 rounded-lg text-white"
-          state={user}
         >
           Send Money
         </Link>
