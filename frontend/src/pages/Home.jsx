@@ -82,7 +82,7 @@ const Home = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex justify-center items-center px-4 py-10">
+        <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-indigo-950 flex justify-center items-center px-4 py-10">
 
             <div className="w-full max-w-lg bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-3xl p-8 shadow-2xl">
 
@@ -90,7 +90,7 @@ const Home = () => {
 
                 <div className="flex flex-col items-center mb-8">
 
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 flex items-center justify-center text-4xl font-bold text-white mb-4">
+                    <div className="w-20 h-20 rounded-full bg-linear-to-r from-emerald-500 to-cyan-500 flex items-center justify-center text-4xl font-bold text-white mb-4">
                         ₹
                     </div>
 
@@ -142,7 +142,7 @@ const Home = () => {
                             setIsLogin(true);
                         }}
                         className={`flex-1 py-3 rounded-lg font-semibold transition ${isLogin
-                                ? "bg-gradient-to-r from-emerald-500 to-green-600 text-white"
+                                ? "bg-linear-to-r from-emerald-500 to-green-600 text-white"
                                 : "text-slate-400"
                             }`}
                     >
@@ -156,7 +156,7 @@ const Home = () => {
                             setIsLogin(false);
                         }}
                         className={`flex-1 py-3 rounded-lg font-semibold transition ${!isLogin
-                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                                ? "bg-linear-to-r from-blue-500 to-purple-600 text-white"
                                 : "text-slate-400"
                             }`}
                     >
@@ -218,7 +218,7 @@ const Home = () => {
 
                         <button
                             type="submit"
-                            className="w-full py-4 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-xl text-white font-bold text-lg transition"
+                            className="w-full py-4 bg-linear-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-xl text-white font-bold text-lg transition"
                         >
                             Login
                         </button>
@@ -274,7 +274,7 @@ const Home = () => {
 
                         <button
                             type="submit"
-                            className="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl text-white font-bold text-lg transition"
+                            className="w-full py-4 bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl text-white font-bold text-lg transition"
                         >
                             Register
                         </button>
