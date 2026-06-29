@@ -53,7 +53,7 @@ const UserProfile = () => {
       </div>
 
       {/* Virtual Card */}
-      <div className="max-w-4xl mx-auto bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
+      <div className="max-w-4xl mx-auto bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 text-white shadow-2xl mb-8">
 
         <h2 className="text-lg font-semibold">
           Banking App

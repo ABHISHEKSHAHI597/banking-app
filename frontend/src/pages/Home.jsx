@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
+import api from "../api/axios";
 
 const Home = () => {
     const navigate = useNavigate()
@@ -26,8 +27,8 @@ const Home = () => {
         try {
             setLoading(true);
 
-            const res = await axios.post(
-                "http://localhost:5000/login",
+            const res = await api.post(
+                "/login",
                 {
                     email: data.email,
                     password: data.password,
@@ -64,8 +65,8 @@ const Home = () => {
 
             setLoading(true);
 
-            const res = await axios.post(
-                "http://localhost:5000/register",
+            const res = await api.post(
+                "/register",
                 {
                     name: data.name,
                     email: data.email,

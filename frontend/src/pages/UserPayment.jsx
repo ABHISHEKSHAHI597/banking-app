@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import api from "../api/axios"
 
 const UserPayment = () => {
     const [receiverCardNumber, setReceiverCardNumber] = useState("");
@@ -22,8 +23,8 @@ const UserPayment = () => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const { data } = await axios.get(
-                    "http://localhost:5000/getUser",
+                const { data } = await api.get(
+                    "/getUser",
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -90,8 +91,8 @@ const UserPayment = () => {
         try {
             setLoading(true);
 
-            const paymentResponse = await axios.post(
-                "http://localhost:5000/userPayment",
+            const paymentResponse = await api.post(
+                "/userPayment",
                 {
                     receiverCardNumber,
                     senderCardNumber,
@@ -105,8 +106,8 @@ const UserPayment = () => {
                 }
             );
 
-            const userResponse = await axios.get(
-                "http://localhost:5000/getUser",
+            const userResponse = await api.get(
+                "/getUser",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

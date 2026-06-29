@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import api from "../api/axios"
 
 const UserTransaction = () => {
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ const UserTransaction = () => {
       try {
         setLoading(true);
 
-        const userRes = await axios.get(
-          "http://localhost:5000/getUser",
+        const userRes = await api.get(
+          "/getUser",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -32,8 +33,8 @@ const UserTransaction = () => {
 
         setUser(userRes.data.user);
 
-        const transRes = await axios.get(
-          "http://localhost:5000/userTransaction",
+        const transRes = await api.get(
+          "/userTransaction",
           {
             headers: {
               Authorization: `Bearer ${token}`,

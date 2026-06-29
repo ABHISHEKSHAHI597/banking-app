@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../api/axios"
 
 const UserDashboard = () => {
   const [credit, setCredit] = useState(0);
@@ -25,8 +26,8 @@ const UserDashboard = () => {
 
     const getData = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:5000/userDashboard",
+        const res = await api.get(
+          "/userDashboard",
           {
             headers: {
               Authorization: `Bearer ${token}`,
