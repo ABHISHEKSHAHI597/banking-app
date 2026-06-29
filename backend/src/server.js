@@ -25,6 +25,9 @@ app.use(cors({
   credentials: true
 }))
 
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 app.post("/login", loginController)
 app.post("/register", registerController)
 app.get("/userDashboard", protect, userDashboardController)
